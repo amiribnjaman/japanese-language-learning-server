@@ -25,4 +25,23 @@ const createVocabulary = async (req, res) => {
   }
 };
 
-module.exports = { createVocabulary };
+// GETING VOCABULARY API FUNCTION 
+const getAllVocabulary = async (req, res) => {
+    try {
+      const allVocabulary = await Vocabulary.findAll();
+      if (allVocabulary) {
+        res.send({
+          status: "200",
+          allVocabulary: allVocabulary,
+        });
+      } else {
+        res.send({ status: "401", message: "Something went wrong" });
+      }
+    } catch (error) {
+      res.send({ status: "500", error });
+    }
+}
+
+
+
+module.exports = { createVocabulary, getAllVocabulary };
