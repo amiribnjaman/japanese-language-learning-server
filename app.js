@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 require("./config/db");
 const userRouter = require("./route/user.router");
+const vocabularyRouter = require("./route/vocabulary.router")
 
 // Middlewares
 app.use(cors());
@@ -14,6 +15,9 @@ app.use(express.json());
 // Application Routes
 // User route
 app.use("/api/v1/user", userRouter);
+
+// vocabulary route
+app.use("/api/v1/vocabulary", vocabularyRouter);
 
 
 

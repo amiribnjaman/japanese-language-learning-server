@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 require("dotenv").config();
 const mongoose = require("mongoose");
+const jwt = require("jsonwebtoken");
 
 // Create OR Signup a user
 const signupUser = async (req, res) => {
@@ -18,7 +19,7 @@ const signupUser = async (req, res) => {
         name,
         email,
         password: hashPass,
-        img
+        img,
       });
       await newUser.save();
       res.send({ status: "201", user: newUser });
@@ -33,14 +34,19 @@ const signupUser = async (req, res) => {
 // Login user
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log(email, password);
   try {
-    const getuser = await User.findOne({ email: email });
+      const getuser = await User.findOne({ email: email });
+      console.log(getuser);
     if (getuser) {
-      const comparePass = bcrypt.compareSync(password, getuser.password);
+        const comparePass = bcrypt.compareSync(password, getuser.password);
+        console.log(comparePass);
       if (comparePass) {
-        // JWT Sign
+        console.log('inside ',comparePass);
+          // JWT Sign
         const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN);
-        // res.cookie("Token", token, { httpOnly: false });
+          // res.cookie("Token", token, { httpOnly: false });
+          console.log(token);
         res.send({
           status: "200",
           token,
@@ -57,8 +63,6 @@ const loginUser = async (req, res) => {
     res.send({ status: "500", error });
   }
 };
-
-
 
 module.exports = {
   signupUser,
