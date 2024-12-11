@@ -9,6 +9,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
+// Routes
+// app.use('api/v1/user')
+
 // Testing route
 app.get("/", (req, res) => {
   res.status(200).json({
