@@ -30,8 +30,37 @@ const signupUser = async (req, res) => {
   }
 };
 
+// Login user
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const getuser = await User.findOne({ email: email });
+    if (getuser) {
+      const comparePass = bcrypt.compareSync(password, getuser.password);
+      if (comparePass) {
+        // JWT Sign
+        const token = jwt.sign({ email: email }, process.env.ACCESS_TOKEN);
+        // res.cookie("Token", token, { httpOnly: false });
+        res.send({
+          status: "200",
+          token,
+          userId: getuser.id,
+          message: "Logedin successfully!",
+        });
+      } else {
+        res.send({ status: "401", message: "Email or password is Invalid" });
+      }
+    } else {
+      res.send({ status: "404", message: "User not found!" });
+    }
+  } catch (error) {
+    res.send({ status: "500", error });
+  }
+};
+
 
 
 module.exports = {
   signupUser,
+  loginUser,
 };

@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 require("./config/db");
+const userRouter = require("./route/user.router");
 
 // Middlewares
 app.use(cors());
@@ -9,8 +10,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 
-// Routes
-// app.use('api/v1/user')
+
+// Application Routes
+// User route
+app.use("/api/v1/user", userRouter);
+
+
 
 // Testing route
 app.get("/", (req, res) => {
