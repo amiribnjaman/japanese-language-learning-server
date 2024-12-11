@@ -15,6 +15,9 @@ const lessionSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  vocabularyCount: {
+    type: Number,
+  },
   createOn: {
     type: Date,
     default: Date.now,

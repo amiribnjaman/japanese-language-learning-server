@@ -5,8 +5,13 @@ require("./config/db");
 const userRouter = require("./route/user.router");
 const vocabularyRouter = require("./route/vocabulary.router")
 
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
+
 // Middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
