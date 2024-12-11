@@ -37,7 +37,6 @@ const loginUser = async (req, res) => {
   console.log(email, password);
   try {
       const getuser = await User.findOne({ email: email });
-      console.log(getuser);
     if (getuser) {
         const comparePass = bcrypt.compareSync(password, getuser.password);
         console.log(comparePass);
@@ -64,7 +63,27 @@ const loginUser = async (req, res) => {
   }
 };
 
+
+// GET SIGNLE UESR THROUGH THE USER ID
+const getSigleUser = async (req, res) => {
+  const { userId } = req.params;
+  try {
+    if (userId) {
+      const getuser = await User.findOne({ id: userId });
+      res.send({
+        status: "200",
+        data: getuser,
+        role: getuser.role
+      });
+    }
+  } catch (error) {
+    res.send({ status: "500", error });
+  }
+}
+
+
 module.exports = {
   signupUser,
   loginUser,
+  getSigleUser
 };
