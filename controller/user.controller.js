@@ -100,9 +100,50 @@ const getAllUser = async (req, res) => {
 }
 
 
+// UPDATE USER ROLE API 
+const changeUserRole = async (req, res) => {
+  console.log('helloooooo')
+  const authRes = req.res;
+  const {email} = req.body
+  try {
+    if (authRes == "accessed") {
+      const getuser = await User.findOne({ email: email });
+      if (getuser.role == 'admin') {
+        await User.updateOne({ email: email }, {
+          $set: {
+          role: 'user'
+        }
+        })
+        res.send({
+          status: "200",
+          data: getuser,
+          msg: 'User role updated to User'
+        });
+      } else if (getuser.role == 'user') {
+        await User.updateOne({ email: email }, {
+          $set: {
+            role: 'admin',
+          }
+        })
+        res.send({
+          status: "200",
+          data: getuser,
+          msg: "User role updated to Admin",
+        });
+      }
+      
+    }
+  } catch (error) {
+    res.send({ status: "500", error });
+  }
+  
+}
+
+
 module.exports = {
   signupUser,
   loginUser,
   getSigleUser,
   getAllUser,
+  changeUserRole,
 };

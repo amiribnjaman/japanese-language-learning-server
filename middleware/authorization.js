@@ -3,6 +3,7 @@ require("dotenv").config();
 const User = require("../model/user.model");
 
 const authorization = (req, res, next) => {
+  console.log('geljfaj')
   const auth = req.headers.authorization;
   if (auth) {
     const TOKEN = auth.split(" ")[1];
