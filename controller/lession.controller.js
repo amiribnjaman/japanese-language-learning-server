@@ -5,16 +5,15 @@ const mongoose = require("mongoose");
 
 // Create OR Signup a user
 const addLession = async (req, res) => {
-    console.log(req.body)
   const { lessionName, lessionNumber } = req.body;
-    const authRes = req.res;
-    console.log(authRes);
+  const authRes = req.res;
+  console.log(authRes, lessionName, lessionNumber);
   try {
-    if (authRes=='accessed') {
-        const getlession = await Lession.findOne({
-          lessionNumber: lessionNumber,
-        });
-        console.log(getlession);
+    if (authRes == "accessed") {
+      const getlession = await Lession.findOne({
+        lessionNumber: lessionNumber,
+      });
+      // console.log(getlession);
       if (!getlession) {
         const newLession = new Lession({
           _id: new mongoose.Types.ObjectId(),
@@ -23,9 +22,10 @@ const addLession = async (req, res) => {
           lessionNumber,
         });
         await newLession.save();
-        res.send({ status: "201", user: newLession });
+        console.log(newLession);
+        res.send({ status: "201", lession: newLession, message: "Lession created successfully " });
       } else {
-        res.send({ status: "400", message: "Lession on pogress" });
+        res.send({ status: "400", message: "Lession already on pogress" });
       }
     }
   } catch (error) {

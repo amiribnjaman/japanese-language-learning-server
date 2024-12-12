@@ -21,10 +21,14 @@ app.use(express.json());
 // Application Routes
 // User route
 app.use("/api/v1/user", userRouter);
+
+// Lession route
 app.use("/api/v1/lession", lessionRouter);
 
 // vocabulary route
 app.use("/api/v1/vocabulary", vocabularyRouter);
+
+
 
 
 

@@ -18,7 +18,7 @@ const vocabularySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  lessionNo: {
+  lessionNumber: {
     type: String,
     required: true,
   },
@@ -29,7 +29,7 @@ const vocabularySchema = new mongoose.Schema({
   completion: {
     type: String,
     required: true,
-    default: false
+    default: false,
   },
   createOn: {
     type: Date,

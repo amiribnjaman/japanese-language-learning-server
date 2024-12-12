@@ -5,7 +5,7 @@ const jwtAuthentication = require('../middleware/jwtAuthentication')
 const authorization = require('../middleware/authorization')
 
 // Router
-router.post("/createVocabulary", authorization, createVocabulary);
-router.get("/getAllVocabulary", jwtAuthentication, getAllVocabulary);
+router.post("/createvocabulary", authorization, createVocabulary);
+router.get("/getallvocabulary", jwtAuthentication, getAllVocabulary);
 
 module.exports = router;
