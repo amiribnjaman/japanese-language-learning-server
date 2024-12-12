@@ -9,6 +9,7 @@ const jwtAuthentication = (req, res, next) => {
       if (err) {
         return res.send({ status: "401", msg: "Unathorized Access" });
       } else {
+        console.log('form jwt', decoded)
         req.decoded = decoded;
         next();
       }

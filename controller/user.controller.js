@@ -67,13 +67,31 @@ const loginUser = async (req, res) => {
 // GET SIGNLE UESR THROUGH THE USER ID
 const getSigleUser = async (req, res) => {
   const { userId } = req.params;
+  console.log(userId)
   try {
     if (userId) {
       const getuser = await User.findOne({ id: userId });
       res.send({
         status: "200",
         data: getuser,
-        role: getuser.role
+      });
+      
+    }
+  } catch (error) {
+    res.send({ status: "500", error });
+  }
+}
+
+
+// GET ALL USER 
+const getAllUser = async (req, res) => {
+  const authRes = req.res
+  try {
+    if (authRes == "accessed") {
+      const getuser = await User.find({});
+      res.send({
+        status: "200",
+        data: getuser,
       });
     }
   } catch (error) {
@@ -85,5 +103,6 @@ const getSigleUser = async (req, res) => {
 module.exports = {
   signupUser,
   loginUser,
-  getSigleUser
+  getSigleUser,
+  getAllUser,
 };
