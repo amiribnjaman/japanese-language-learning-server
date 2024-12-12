@@ -33,6 +33,28 @@ const addLession = async (req, res) => {
   }
 };
 
+
+// GETING VOCABULARY API FUNCTION
+const getAllLession = async (req, res) => {
+  const authRes = req.res;
+  try {
+    if (authRes == "accessed") {
+      const allLession = await Lession.find({});
+      if (allLession) {
+        res.send({
+          status: "200",
+          allLession: allLession,
+        });
+      } else {
+        res.send({ status: "401", message: "Something went wrong" });
+      }
+    }
+  } catch (error) {
+    res.send({ status: "500", error });
+  }
+};
+
 module.exports = {
   addLession,
+  getAllLession,
 };
