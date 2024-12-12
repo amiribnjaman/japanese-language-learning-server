@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 require("./config/db");
 const userRouter = require("./route/user.router");
+const lessionRouter = require("./route/lession.router");
 const vocabularyRouter = require("./route/vocabulary.router")
 
 const corsOptions = {
@@ -20,6 +21,7 @@ app.use(express.json());
 // Application Routes
 // User route
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/lession", lessionRouter);
 
 // vocabulary route
 app.use("/api/v1/vocabulary", vocabularyRouter);
